@@ -55,6 +55,11 @@
     color: #7386d5;
     background: #fff;
   }
+
+  .nav-item.active {
+    background:white;
+    color:#081135;
+  }
   
   .items-menu {
     color: #fff;

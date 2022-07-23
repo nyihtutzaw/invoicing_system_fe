@@ -1,17 +1,19 @@
 import React from 'react'
 import { Container } from 'reactstrap'
 import { Routes, Route } from 'react-router-dom'
-
-import Home from '../../pages/home'
-import Invoices from '../../pages/invoices'
-import Graphs from '../../pages/graph'
+import { routes } from '../../routes'
 
 const Content = () => (
   <Container fluid className="content">
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/invoices" element={<Invoices />} />
-      <Route path="/graph" element={<Graphs />} />
+      {routes.map((route, key) => (
+        <Route
+          path={route.path}
+          element={route.component}
+          key={`route-${key}`}
+          name={route.name}
+        />
+      ))}
     </Routes>
   </Container>
 )
