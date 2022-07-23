@@ -4,12 +4,15 @@ import dayjs from 'dayjs'
 import queryString from 'query-string'
 import { Button } from 'reactstrap'
 import { useLocation } from 'react-router-dom'
+import DetailModal from './detailModal'
 import Table from '../../components/Table'
 import Layout from '../../components/Layout'
 import * as InvoiceAction from '../../store/actions/invoice'
 import { moneyFormatter } from '../../util'
 
 function Invoices() {
+  const [detailModal, setDetailModal] = React.useState(false)
+  const [detail, setDetail] = React.useState(false)
   const dispatch = useDispatch()
   const location = useLocation()
   const invoices = useSelector((state) => state.invoice.invoices)
@@ -61,12 +64,27 @@ function Invoices() {
               <td>{data.note}</td>
               <td>{dayjs(data.createdAt).format('DD/MM/YYYY HH:mm')}</td>
               <td>
-                <Button size="sm">Detail</Button>
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    setDetailModal(true)
+                    setDetail(data)
+                  }}
+                >
+                  Detail
+                </Button>
               </td>
             </tr>
           ))}
         />
       </div>
+      <DetailModal
+        modalOpen={detailModal}
+        data={detail}
+        onToggle={() => {
+          setDetailModal(false)
+        }}
+      />
     </Layout>
   )
 }
