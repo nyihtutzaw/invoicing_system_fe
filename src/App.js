@@ -6,6 +6,7 @@ import store from './store'
 import SideBar from './components/SideBar'
 import Content from './components/Content'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'react-loading-skeleton/dist/skeleton.css'
 import './app.css'
 function App() {
   return (
@@ -15,11 +16,6 @@ function App() {
           <SideBar />
           <Content />
         </div>
-        {/* <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/invoices" element={<h1>Invoices</h1>} />
-          <Route path="/graph" element={<h1>Graph</h1>} />
-        </Routes> */}
       </BrowserRouter>
       <NotificationContainer />
     </Provider>

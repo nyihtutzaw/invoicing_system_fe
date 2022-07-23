@@ -80,19 +80,11 @@ export default function Table({
               <p>Total : {data.length ? data.length : 0}</p>
             </div>
           )}
-          {data?.totalPages > 0 && (
+          {data?.totalPage > 0 && (
             <div className="d-flex justify-content-end">
-              {data?.totalPages > 1 && (
+              {data?.totalPage > 1 && (
                 <Pagination>
-                  {data?.hasPrevPage && (
-                    <PaginationItem>
-                      <PaginationLink
-                        previous
-                        onClick={() => setActivePage(data?.page - 1)}
-                      />
-                    </PaginationItem>
-                  )}
-                  {[...Array(data?.totalPages)].map((x, i) => (
+                  {[...Array(data?.totalPage)].map((x, i) => (
                     <PaginationItem active={i + 1 === data?.page}>
                       <PaginationLink
                         onClick={() => setActivePage(i + 1)}
@@ -102,14 +94,6 @@ export default function Table({
                       </PaginationLink>
                     </PaginationItem>
                   ))}
-                  {data?.hasNextPage && (
-                    <PaginationItem>
-                      <PaginationLink
-                        next
-                        onClick={() => setActivePage(data?.page + 1)}
-                      />
-                    </PaginationItem>
-                  )}
                 </Pagination>
               )}
             </div>
