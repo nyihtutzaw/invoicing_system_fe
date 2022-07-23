@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom'
 import Table from '../../components/Table'
 import Layout from '../../components/Layout'
 import * as InvoiceAction from '../../store/actions/invoice'
+import { moneyFormatter } from '../../util'
 
 function Invoices() {
   const dispatch = useDispatch()
@@ -56,7 +57,7 @@ function Invoices() {
             <tr key={`table-row-${index}-${Math.random()}`}>
               <td>{data.customer_name}</td>
               <td>{data.sale_person}</td>
-              <td>{data.total}</td>
+              <td>{moneyFormatter(data.total)}</td>
               <td>{data.note}</td>
               <td>{dayjs(data.createdAt).format('DD/MM/YYYY HH:mm')}</td>
               <td>
