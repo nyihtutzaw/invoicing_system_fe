@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { NotificationContainer } from 'react-notifications'
 import { Provider } from 'react-redux'
 import store from './store'
-import SideBar from './components/sidebar/SideBar'
-import Content from './components/content/Content'
+import SideBar from './components/SideBar'
+import Content from './components/Content'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './app.css'
 function App() {
