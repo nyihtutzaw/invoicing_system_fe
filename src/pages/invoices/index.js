@@ -16,9 +16,9 @@ function Invoices() {
     loadData()
   }, [location.search])
 
-  const loadData = () => {
+  const loadData = (refresh = false) => {
     let query = { limit: 10, page: 1 }
-    if (location.search) query = queryString.parse(location.search)
+    if (location.search && !refresh) query = queryString.parse(location.search)
     dispatch(InvoiceAction.getAll(query))
   }
 
@@ -43,7 +43,11 @@ function Invoices() {
           ))}
           buttons={
             <>
-              <Button size="small" color="primary" onClick={() => loadData()}>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => loadData(true)}
+              >
                 Refresh
               </Button>
             </>
