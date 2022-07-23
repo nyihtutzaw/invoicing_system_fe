@@ -20,7 +20,7 @@ export default function Table({
   buttons,
   filter,
   data,
-  onPageChange,
+
   grid = false,
 }) {
   const loading = useSelector((state) => state.loading.loading)
@@ -30,13 +30,8 @@ export default function Table({
   const navigate = useNavigate()
 
   React.useEffect(() => {
-    if (data?.page)
-      if (!onPageChange) {
-        navigate(`${location.pathname}?page=${activePage}`)
-      } else {
-        onPageChange(activePage)
-      }
-  }, [activePage, data?.page, onPageChange, location])
+    if (data?.page) navigate(`${location.pathname}?page=${activePage}`)
+  }, [activePage])
 
   return (
     <>
@@ -85,7 +80,10 @@ export default function Table({
               {data?.totalPage > 1 && (
                 <Pagination>
                   {[...Array(data?.totalPage)].map((x, i) => (
-                    <PaginationItem active={i + 1 === data?.page}>
+                    <PaginationItem
+                      active={i + 1 === data?.page}
+                      key={`pagination-item-${i + 1}`}
+                    >
                       <PaginationLink
                         onClick={() => setActivePage(i + 1)}
                         key={`paginiation-item-${x}-${i}`}
