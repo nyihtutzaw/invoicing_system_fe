@@ -8,27 +8,6 @@ function Graphs() {
   const dispatch = useDispatch()
   const loading = useSelector((state) => state.loading.loading)
   const invoice_chart = useSelector((state) => state.invoice.invoice_chart)
-  const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-  ]
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Invoicing Total',
-        data: [100, 200, 30],
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-    ],
-  }
 
   const dailyDataSets = {
     labels: invoice_chart.daily?.map((d) => d.date),
