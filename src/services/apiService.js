@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { NotificationManager } from 'react-notifications'
-const apiEndpoint = 'http://localhost:3200/api/'
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT
 const headers = {
   'Content-Type': 'application/json',
   Accept: 'application/json',
