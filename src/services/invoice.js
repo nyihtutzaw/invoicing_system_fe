@@ -10,6 +10,16 @@ export async function getAll(query) {
   }
 }
 
+export async function getChartData() {
+  try {
+    let response = await getData(`invoice-graph`)
+    return response
+  } catch (e) {
+    NotificationManager.error('Opps. Something wrong')
+    return false
+  }
+}
+
 export async function store(values) {
   try {
     return await sendData('invoices', values)
