@@ -1,51 +1,60 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Card, CardBody, CardTitle, Row, Col, Button } from 'reactstrap'
-import * as ProductAction from './../../store/actions/product'
-import AutoCompleteInput from '../../components/AutoCompleteInput'
+import { Button, Card, CardBody, CardTitle } from 'reactstrap'
+import AddProductForm from './addProductForm'
 function ProductForm() {
-  const dispatch = useDispatch()
-  const [selectedProduct, setSelectedProduct] = React.useState(null)
-  const products = useSelector((state) => state.product.products)
+  const [products, setProducts] = React.useState([])
+
+  const onAddProduct = React.useCallback(
+    (selectedProduct) => {
+      const selected = products.find(
+        (product) => product.id === selectedProduct.id
+      )
+      if (selected) {
+        let updatedProducts = products.map((product) => {
+          if (product.id === selected.id) {
+            product.qty++
+            return product
+          }
+          return product
+        })
+        setProducts(updatedProducts)
+      } else {
+        setProducts((prevArray) => [
+          ...prevArray,
+          { ...selectedProduct, ...{ qty: 1 } },
+        ])
+      }
+    },
+    [products]
+  )
+
+  const getTotal = React.useCallback(() => {
+    let total = 0
+    products.forEach((product) => {
+      total += product.price * product.qty
+    })
+    return total
+  }, [products])
+
+  const onRemoveProduct = React.useCallback(
+    (id) => {
+      const selected = products.find((product) => product.id === id)
+      let updatedProducts = products.map((product) => {
+        if (product.id === selected.id) {
+          product.qty--
+          return product
+        }
+        return product
+      })
+      setProducts(updatedProducts)
+    },
+    [products]
+  )
+
   return (
     <Card className="mt-3 mb-5" style={{ minHeight: 200 }}>
       <CardTitle className="p-3">
-        <Row>
-          <Col md="6">
-            <AutoCompleteInput
-              onChange={(e) => {
-                dispatch(ProductAction.getByKeyword(e.target.value))
-              }}
-              options={products}
-              value={selectedProduct}
-              onSelect={(value) => {
-                setSelectedProduct(value)
-              }}
-            />
-          </Col>
-          <Col md="4">
-            {selectedProduct && (
-              <div className="d-flex justify-content-end align-items-center mr-3">
-                <img
-                  src={selectedProduct?.image}
-                  alt={selectedProduct?.name}
-                  style={{
-                    width: 50,
-                    height: 50,
-                    objectFit: 'contain',
-                    marginRight: 20,
-                  }}
-                />
-                <p>
-                  {selectedProduct?.name} ({selectedProduct?.stock})
-                </p>
-              </div>
-            )}
-          </Col>
-          <Col md="2">
-            <Button color="primary">Add</Button>
-          </Col>
-        </Row>
+        <AddProductForm onAdd={onAddProduct} />
       </CardTitle>
       <CardBody>
         <table className="table">
@@ -56,7 +65,40 @@ function ProductForm() {
             <th>Price</th>
             <th>Qty</th>
             <th>Total</th>
+            <th></th>
           </tr>
+          <tbody>
+            {products.map((product, index) => (
+              <tr key={`product-selected-${index}`}>
+                <td>{index + 1}</td>
+                <td>
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    style={{ width: 50, height: 50, objectFit: 'contain' }}
+                  />
+                </td>
+                <td>{product.name}</td>
+                <td>{product.price}</td>
+                <td>{product.qty}</td>
+                <td>{product.price * product.qty}</td>
+                <td>
+                  <Button
+                    onClick={() => onRemoveProduct(product.id)}
+                    color="danger"
+                  >
+                    -
+                  </Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan={5}> Total : </td>
+              <td>{getTotal()}</td>
+            </tr>
+          </tfoot>
         </table>
       </CardBody>
     </Card>
