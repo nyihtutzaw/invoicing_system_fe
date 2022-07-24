@@ -42,7 +42,7 @@ function AddProductForm({ onAdd, selectedProduct, setSelectedProduct }) {
       <Col md="2">
         <Button
           color="primary"
-          disable={!selectedProduct || selectedProduct.stock === 0}
+          disabled={!selectedProduct || selectedProduct.stock === 0}
           onClick={() => onAdd(selectedProduct)}
         >
           Add

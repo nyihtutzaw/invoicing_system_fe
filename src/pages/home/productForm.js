@@ -1,8 +1,7 @@
 import React from 'react'
 import { Button, Card, CardBody, CardTitle } from 'reactstrap'
 import AddProductForm from './addProductForm'
-function ProductForm() {
-  const [products, setProducts] = React.useState([])
+function ProductForm({ products, setProducts }) {
   const [selectedProduct, setSelectedProduct] = React.useState(null)
 
   const onAddProduct = React.useCallback(() => {
@@ -62,15 +61,17 @@ function ProductForm() {
       </CardTitle>
       <CardBody>
         <table className="table">
-          <tr>
-            <th>No</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Total</th>
-            <th></th>
-          </tr>
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Image</th>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+              <th></th>
+            </tr>
+          </thead>
           <tbody>
             {products.map((product, index) => (
               <tr key={`product-selected-${index}`}>
