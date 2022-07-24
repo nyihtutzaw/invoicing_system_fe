@@ -3,9 +3,8 @@ import { Row, Col, Button } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import * as ProductAction from './../../store/actions/product'
 import AutoCompleteInput from '../../components/AutoCompleteInput'
-function AddProductForm({ onAdd }) {
+function AddProductForm({ onAdd, selectedProduct, setSelectedProduct }) {
   const dispatch = useDispatch()
-  const [selectedProduct, setSelectedProduct] = React.useState(null)
   const products = useSelector((state) => state.product.products)
   return (
     <Row>
