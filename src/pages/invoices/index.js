@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import dayjs from 'dayjs'
 import queryString from 'query-string'
 import { Button } from 'reactstrap'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import DetailModal from './detailModal'
 import Table from '../../components/Table'
 import Layout from '../../components/Layout'
@@ -15,14 +15,15 @@ function Invoices() {
   const [detail, setDetail] = React.useState(false)
   const dispatch = useDispatch()
   const location = useLocation()
+  const navigate = useNavigate()
   const invoices = useSelector((state) => state.invoice.invoices)
   React.useEffect(() => {
     loadData()
   }, [location.search])
 
-  const loadData = (refresh = false) => {
+  const loadData = () => {
     let query = { limit: 10, page: 1 }
-    if (location.search && !refresh) query = queryString.parse(location.search)
+    if (location.search) query = queryString.parse(location.search)
     dispatch(InvoiceAction.getAll(query))
   }
 
@@ -50,7 +51,7 @@ function Invoices() {
               <Button
                 size="small"
                 color="primary"
-                onClick={() => loadData(true)}
+                onClick={() => navigate('/invoices')}
               >
                 Refresh
               </Button>
