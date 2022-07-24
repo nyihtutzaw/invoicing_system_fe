@@ -11,7 +11,20 @@ import {
   Legend,
 } from 'chart.js'
 import { Line } from 'react-chartjs-2'
-function LineGraph({ options, data }) {
+function LineGraph({ data, name }) {
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      title: {
+        display: true,
+        text: name,
+      },
+    },
+  }
+
   ChartJS.register(
     CategoryScale,
     LinearScale,

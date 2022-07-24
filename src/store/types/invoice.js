@@ -1,1 +1,2 @@
 export const SET_INVOICES = 'SET_INVOICES'
+export const SET_INVOICES_CHART = 'SET_INVOICES_CHART'
