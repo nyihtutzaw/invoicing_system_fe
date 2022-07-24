@@ -42,6 +42,30 @@ function Graphs() {
     ],
   }
 
+  const montlyDataSets = {
+    labels: invoice_chart.monthly?.map((d) => d.month),
+    datasets: [
+      {
+        label: 'Invoicing Total',
+        data: invoice_chart.monthly?.map((d) => d.total),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  }
+
+  const yearlyDataSets = {
+    labels: invoice_chart.yearly?.map((d) => d.year),
+    datasets: [
+      {
+        label: 'Invoicing Total',
+        data: invoice_chart.yearly?.map((d) => d.total),
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  }
+
   React.useEffect(() => {
     dispatch(InvoiceAction.getChartData())
   }, [])
@@ -62,13 +86,13 @@ function Graphs() {
         className="ml-3 mr-5 p-3 mb-4"
         style={{ minWidth: 400, maxWidth: 750 }}
       >
-        <LineGraph name="Montly" data={data} />;
+        <LineGraph name="Montly" data={montlyDataSets} />;
       </Card>
       <Card
         className="ml-3 mr-5 p-3 mb-4"
         style={{ minWidth: 400, maxWidth: 750 }}
       >
-        <LineGraph name="Yearly" data={data} />;
+        <LineGraph name="Yearly" data={yearlyDataSets} />;
       </Card>
     </Layout>
   )
