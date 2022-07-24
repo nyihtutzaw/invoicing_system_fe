@@ -18,3 +18,18 @@ export const getAll = (query) => {
     })
   }
 }
+
+export const store = (values) => {
+  return async (dispatch) => {
+    dispatch({
+      type: 'SET_ACTION_LOADING',
+      payload: true,
+    })
+    await InvoiceService.store(values)
+
+    dispatch({
+      type: 'SET_ACTION_LOADING',
+      payload: false,
+    })
+  }
+}
