@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Card, CardBody, CardTitle } from 'reactstrap'
 import AddProductForm from './addProductForm'
-function ProductForm({ products, setProducts }) {
+function ProductForm({ products, setProducts, getTotal }) {
   const [selectedProduct, setSelectedProduct] = React.useState(null)
 
   const onAddProduct = React.useCallback(() => {
@@ -26,14 +26,6 @@ function ProductForm({ products, setProducts }) {
       ])
     }
   }, [products, selectedProduct])
-
-  const getTotal = React.useCallback(() => {
-    let total = 0
-    products.forEach((product) => {
-      total += product.price * product.qty
-    })
-    return total
-  }, [products])
 
   const onRemoveProduct = React.useCallback(
     (id) => {

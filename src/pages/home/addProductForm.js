@@ -5,6 +5,7 @@ import * as ProductAction from './../../store/actions/product'
 import AutoCompleteInput from '../../components/AutoCompleteInput'
 function AddProductForm({ onAdd, selectedProduct, setSelectedProduct }) {
   const dispatch = useDispatch()
+  const loading = useSelector((state) => state.loading.loading)
   const products = useSelector((state) => state.product.products)
   return (
     <Row>
@@ -21,6 +22,7 @@ function AddProductForm({ onAdd, selectedProduct, setSelectedProduct }) {
         />
       </Col>
       <Col md="4">
+        {loading && <p>Loading...</p>}
         {selectedProduct && (
           <div className="d-flex justify-content-end align-items-center mr-3">
             <img

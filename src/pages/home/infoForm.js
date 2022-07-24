@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import {
   Card,
   CardBody,
@@ -9,14 +10,16 @@ import {
   CardFooter,
   Button,
 } from 'reactstrap'
-import { useForm } from 'react-hook-form'
-function InfoForm({ onSubmit }) {
+
+function InfoForm({ onSubmit, form }) {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm()
+  } = form
+
+  const actionLoading = useSelector((state) => state.loading.actionLoading)
 
   return (
     <Card>
@@ -66,10 +69,13 @@ function InfoForm({ onSubmit }) {
             color="warning"
             className="mr-3"
             onClick={() => reset()}
+            disabled={actionLoading}
           >
             Reset
           </Button>
-          <Button color="primary">Submit</Button>
+          <Button disabled={actionLoading} color="primary">
+            Submit
+          </Button>
         </CardFooter>
       </form>
     </Card>
